@@ -1,0 +1,337 @@
+    body {
+        background-color: #b5cac8;
+    }
+    /*#wrapper {
+        width: 900px;
+        margin: auto;
+}*/
+    
+    #left,
+    #right {
+        min-height: 300px;
+    }
+    
+    #left {
+        width: 20%;
+        float: left;
+    }
+    
+    #right {
+        margin-left: 2%;
+        width: 50%;
+        float: left;
+        background-color: #2895e6;
+        border: solid 1px #959595;
+    }
+    
+    #chatForm {
+        width: 100%;
+        min-height: 500px;
+        background-color: #b5cac8;
+    }
+    
+    #boxTitle {
+        border: solid 1px #959595;
+        padding: 5px;
+        text-align: center;
+        font-weight: bold;
+        background-color: peru;
+    }
+    
+    #boxContent {
+        border: solid 1px #959595;
+        border-top: none;
+        padding: 5px;
+        background-color: #f0f2d0;
+        height: 377px;
+        overflow: auto;
+    }
+    
+    #leftHeader {
+        float: left;
+        color: white;
+        text-align: center;
+        padding: 5px;
+    }
+    
+    #sayHi {
+        text-align: right;
+        color: white;
+        padding: 5px;
+    }
+    
+    #listMessages {
+        height: 300px;
+        background-color: #f0fff1;
+        margin-bottom: 15px;
+        padding: 10px 10px;
+        overflow: auto;
+    }
+    
+    #txtMessage {
+        margin: 8px 0;
+        display: inline-block;
+        box-sizing: border-box;
+        background-color: whitesmoke;
+        border: 1px solid #ccc;
+        padding: 10px 20px;
+        margin-left: 5%;
+        width: 80%;
+    }
+    
+    #btnSendMessage {
+        padding: 10px 10px;
+        width: auto;
+    }
+    
+    .username {
+        padding: 5px;
+        width: auto;
+        background-color: #c6c68c;
+        margin-top: 2px;
+    }
+    
+    .username:hover {
+        opacity: 0.8;
+    }
+    
+    .username:active {
+        background-color: #74bbef;
+    }
+    
+    .btnGroup {
+        display: none;
+        float: right;
+        margin-right: 5px;
+        font-size: 10px;
+    }
+    /*Chat room*/
+    
+    #contentRoom {
+        width: 26%;
+        float: right;
+        min-height: 300px;
+    }
+    
+    #registerRoom {
+        text-align: right;
+    }
+    
+    #chatRoom {
+        min-height: 500px;
+        background-color: #b5cac8;
+    }
+    
+    .roomTitle {
+        border: solid 1px #959595;
+        padding: 5px;
+        text-align: center;
+        font-weight: bold;
+        background-color: peru;
+    }
+    
+    .nameHeader {
+        text-align: center;
+        margin-left: 5px;
+    }
+    
+    .iconClose {
+        text-align: right;
+    }
+    
+    .btnClose {
+        text-align: right;
+    }
+    
+    #myRoomName {
+        border: solid 1px #959595;
+        border-top: none;
+        padding: 5px;
+        background-color: #f0f2d0;
+        height: 100px;
+        overflow: auto;
+    }
+    
+    .rdCheck {
+        float: right;
+        margin-right: 5px;
+    }
+    
+    #dsRoom {
+        border: solid 1px #959595;
+        border-top: none;
+        padding: 5px;
+        background-color: #f0f2d0;
+        height: 210px;
+        overflow: auto;
+    }
+    
+    .myRoom-Name {
+        padding: 5px;
+        width: auto;
+        background-color: #c6c68c;
+        margin-top: 2px;
+    }
+    
+    .room {
+        padding: 5px;
+        width: auto;
+        background-color: #c6c68c;
+        margin-top: 2px;
+    }
+    
+    .room:hover {
+        opacity: 0.8;
+    }
+    
+    .myRoom-Name:hover {
+        opacity: 0.8;
+    }
+    
+    .room:active {
+        background-color: #74bbef;
+    }
+    
+    .myRoom-Name:active {
+        background-color: #74bbef;
+    }
+    
+    #lstRoom {
+        width: 100%;
+        float: left;
+    }
+    
+    #roomHienTai {
+        border: solid 1px black;
+        border-top: none;
+        padding: 5px;
+        background-color: #f0f2d0
+    }
+    /*Chat Box Room*/
+    
+    #formChatRoom {
+        width: 30%;
+        background-color: #2895e6;
+        position: fixed;
+        bottom: 0;
+        border: solid 1px #959595;
+    }
+    
+    #headerRoom {
+        color: white;
+        padding: 5px;
+        text-align: center;
+    }
+    
+    #headerRoom:hover {
+        background-color: #75d2ff;
+    }
+    
+    #listMessagesRoom {
+        height: 200px;
+        background-color: #f0fff1;
+        margin-bottom: 15px;
+        padding: 10px 10px;
+        overflow: auto;
+    }
+    
+    #txtMessageRoom {
+        width: 80%;
+        margin: 8px 0;
+        display: inline-block;
+        box-sizing: border-box;
+        background-color: whitesmoke;
+        border: 1px solid #ccc;
+        padding: 10px 20px;
+    }
+    
+    #btnSendMessageRoom {
+        padding: 10px 10px;
+        width: auto;
+    }
+    
+    #sayRoom {
+        float: left;
+    }
+    
+    #btLeave {
+        text-align: right;
+    }
+    
+    .send {
+        text-align: center;
+    }
+    
+    #boxUser {
+        width: 15%;
+        height: 320px;
+        background-color: #f0f2d0;
+        position: fixed;
+        bottom: 0;
+        left: 31%;
+        overflow: auto;
+        margin-left: -3px;
+        border: solid 1px #e8e8e8;
+        display: none;
+    }
+    /*CHAT FRIEND*/
+    
+    #chatFriend {
+        width: 20%;
+        min-height: 300px;
+        float: left;
+        margin-left: 2%;
+        background-color: #2895e6;
+        position: fixed;
+        bottom: 0;
+        right: 10px;
+        border: solid 1px #959595;
+    }
+    
+    #headerFriend {
+        text-align: right;
+        color: white;
+        padding: 5px;
+        text-align: center;
+    }
+    
+    #nameFriend {
+        color: white;
+        font-size: 16px;
+        padding-left: 10px;
+        float: left;
+        padding: 5px;
+    }
+    
+    .btnClose {
+        float: right;
+        margin-right: 5px;
+    }
+    
+    #msgFriend {
+        height: 200px;
+        background-color: #f0fff1;
+        margin-bottom: 15px;
+        padding: 10px 10px;
+        overflow: auto;
+        clear: both;
+    }
+    
+    #send {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    #txtFriend {
+        width: 40%;
+        margin: 8px 0;
+        background-color: whitesmoke;
+        border: 1px solid #ccc;
+        padding: 10px 20px;
+        margin-left: 5%;
+    }
+    
+    #btnFriend {
+        padding: 10px;
+    }
