@@ -16,7 +16,8 @@ io.on("connection", function(socket) {
 
     function User($username, $id) {
         this.UserName = $username;
-        this.ID = $username;
+        this.ID = $id;
+        this.status = true;
     }
 
     // for (r in socket.adapter.rooms) {
@@ -24,34 +25,72 @@ io.on("connection", function(socket) {
     //         socket.leave(socket.id);
     //     }
     // }
-
+    function searchForId(userName) {
+        for( var i = 0; i < mangUsers.length; i++) {
+            if(mangUsers[i].UserName == userName) {
+                return mangUsers[i].ID;
+            }
+        }
+        return false;
+    }
+    function searchForUserName(id) {
+        for( var i = 0; i < mangUsers.length; i++) {
+            if(mangUsers[i].ID == id) {
+                return mangUsers[i];
+            }
+        }
+        return false;
+    }
     //Create username, send list User to client
     socket.on("client-send-Username", function(data) {
         $flag = true;
-        mangUsers.forEach(function(item) {
+        var object = {};
+        var numb = -1;
+        mangUsers.forEach(function(item, i) {
             if (item.UserName == data) {
                 // Exits user
+                numb = i;
+                object = item;
                 $flag = false;
                 return;
             }
         });
-        if ($flag) {
+        if(object.UserName) {
+            if(object.status == true) {
+                socket.emit("server-send-dki-thatbai");
+            } else {
+                mangUsers[numb].ID = socket.id;
+                socket.Username = data;
+                console.log(mangUsers);
+                socket.emit("server-send-dki-thanhcong", mangUsers[numb]);
+                io.sockets.emit("server-send-danhsach-Users", mangUsers);
+            }
+        } else {
             $users = new User(data, socket.id);
             //add array list USER
             mangUsers.push($users);
             socket.Username = data;
             socket.emit("server-send-dki-thanhcong", $users);
             io.sockets.emit("server-send-danhsach-Users", mangUsers);
-        } else {
-            socket.emit("server-send-dki-thatbai");
         }
+        // if ($flag) {
+        //     $users = new User(data, socket.id);
+        //     //add array list USER
+        //     mangUsers.push($users);
+        //     console.log(mangUsers);
+        //     socket.Username = data;
+        //     socket.emit("server-send-dki-thanhcong", $users);
+        //     io.sockets.emit("server-send-danhsach-Users", mangUsers);
+        // } else {
+        //     socket.emit("server-send-dki-thatbai");
+        // }
     });
 
     //remove user in list User
     socket.on("logout", function() {
         for (var i = 0; i < mangUsers.length; i++) {
             if (mangUsers[i].ID === socket.id) {
-                mangUsers.splice(i, 1);
+                mangUsers[i].status = false;
                 break;
             }
         }
@@ -90,7 +129,8 @@ io.on("connection", function(socket) {
     //Send private message
     socket.on("send-message-friend", function(data) {
         //Server send message to User
-        io.to(data.userID).emit("sever-send-msg-friend", {
+        var friendID = searchForId(data.receiverName);
+        io.to(friendID).emit("sever-send-msg-friend", {
             un: socket.Username,
             nd: data.message,
             sender: data.sender
@@ -233,7 +273,7 @@ io.on("connection", function(socket) {
     socket.on('disconnect', function() {
         for (var i = 0; i < mangUsers.length; i++) {
             if (mangUsers[i].ID === socket.id) {
-                mangUsers.splice(i, 1);
+                mangUsers[i].status = false;
                 break;
             }
         }

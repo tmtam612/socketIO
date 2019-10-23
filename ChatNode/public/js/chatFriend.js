@@ -9,10 +9,14 @@ $(document).ready(function() {
     //send message to Server
     $("#btnFriend").click(function() {
         var message = $('#txtFriend').val();
+        var chatBox = $(this).closest('#chatFriend');
+        var friendName = chatBox.find('#nameFriend').text();
         if(message !== '') {
             socket.emit("send-message-friend", {
                 message: message,
                 userID: $("#txtID").val(),
+                senderName: $('#currentUser').text(),
+                receiverName: friendName,
                 sender: $('#currentUserID').val()
             });
         }
