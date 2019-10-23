@@ -12,11 +12,11 @@ server.listen(3000);
 var mangUsers = [];
 
 io.on("connection", function(socket) {
-    console.log("Co nguoi ket noi " + socket.id);
+    // console.log("Co nguoi ket noi " + socket.id);
 
     function User($username, $id) {
         this.UserName = $username;
-        this.ID = $id;
+        this.ID = $username;
     }
 
     // for (r in socket.adapter.rooms) {
@@ -40,7 +40,7 @@ io.on("connection", function(socket) {
             //add array list USER
             mangUsers.push($users);
             socket.Username = data;
-            socket.emit("server-send-dki-thanhcong", data);
+            socket.emit("server-send-dki-thanhcong", $users);
             io.sockets.emit("server-send-danhsach-Users", mangUsers);
         } else {
             socket.emit("server-send-dki-thatbai");
@@ -78,6 +78,7 @@ io.on("connection", function(socket) {
     // ------CHAT FRIEND------ //
     //Check username in mangUser
     socket.on("username-friend", function(data) {
+        // console.log(data);
         for (var i = 0; i < mangUsers.length; i++) {
             if (mangUsers[i].ID === data) {
                 socket.emit("server-send-username-friend", mangUsers[i]);
@@ -91,7 +92,8 @@ io.on("connection", function(socket) {
         //Server send message to User
         io.to(data.userID).emit("sever-send-msg-friend", {
             un: socket.Username,
-            nd: data.message
+            nd: data.message,
+            sender: data.sender
         });
         //Server send message to client 
         socket.emit("server-send-msg-thanhcong", {
@@ -229,14 +231,14 @@ io.on("connection", function(socket) {
 
     //Disconnect 
     socket.on('disconnect', function() {
-        // for (var i = 0; i < mangUsers.length; i++) {
-        //     if (mangUsers[i].ID === socket.id) {
-        //         mangUsers.splice(i, 1);
-        //         break;
-        //     }
-        // }
-        // socket.broadcast.emit("server-send-danhsach-Users", mangUsers);
-        console.log(socket.id + " ngat ket noi");
+        for (var i = 0; i < mangUsers.length; i++) {
+            if (mangUsers[i].ID === socket.id) {
+                mangUsers.splice(i, 1);
+                break;
+            }
+        }
+        socket.broadcast.emit("server-send-danhsach-Users", mangUsers);
+        // console.log(socket.id + " ngat ket noi");
     });
 });
 

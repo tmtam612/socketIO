@@ -16,7 +16,7 @@ $(document).ready(function() {
         $name = $("#txtUsername").val();
         if ($name) {
             socket.emit("client-send-Username", $("#txtUsername").val());
-            $("#txtUsername").val("");
+            // $("#txtUsername").val("");
         }
     });
 
@@ -61,7 +61,8 @@ socket.on("server-send-danhsach-Users", function(data) {
 
 //show Box chat all user
 socket.on("server-send-dki-thanhcong", function(data) {
-    $("#currentUser").html(data);
+    $('#currentUserID').val(data.ID);
+    $("#currentUser").html(data.UserName);
     $("#loginForm").hide();
     $("#chatForm").show();
 });

@@ -8,10 +8,14 @@ $(document).ready(function() {
 
     //send message to Server
     $("#btnFriend").click(function() {
-        socket.emit("send-message-friend", {
-            message: $("#txtFriend").val(),
-            userID: $("#txtID").val()
-        });
+        var message = $('#txtFriend').val();
+        if(message !== '') {
+            socket.emit("send-message-friend", {
+                message: message,
+                userID: $("#txtID").val(),
+                sender: $('#currentUserID').val()
+            });
+        }
     });
 
     $("#txtFriend").focusin(function() {
@@ -71,6 +75,7 @@ socket.on("server-send-username-friend", function(data) {
 //Get message from Server
 socket.on("sever-send-msg-friend", function(data) {
     $("#nameFriend").html(data.un);
+    $('#txtID').val(data.sender);
     $("#chatFriend").show(300);
     $("#msgFriend").append(
         "<div class='ms'>" +

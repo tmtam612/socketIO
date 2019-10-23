@@ -35,6 +35,7 @@
                     <div id="leftHeader">To: All User</div>
                     <div id="sayHi">
                         Hello <span id="currentUser"></span>
+                        <input type="hidden" id="currentUserID" />
                         <input type="button" id="btnLogout" value="Logout">
                     </div>
                     <div id="listMessages"></div>
@@ -55,6 +56,8 @@
                     <div id="msgFriend"></div>
                     <div id="alertFriend"></div>
                     <div class="send">
+                        <input type="hidden" id="sender" />
+                        <input type="hidden" id="receiver" />
                         <input type="hidden" id="txtID" />
                         <input type="text" id="txtFriend" onkeydown="if (event.keyCode == 13) $('#btnFriend').click()" />
                         <input type="button" id="btnFriend" value="Send" />
