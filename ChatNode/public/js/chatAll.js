@@ -52,10 +52,12 @@ socket.on("server-send-dki-thatbai", function() {
 socket.on("server-send-danhsach-Users", function(data) {
     $("#boxContent").html("");
     data.forEach(function(item) {
-        $("#boxContent").append(
-            "<div class='username' data-name='" + item.ID + "'>" + item.UserName +
-            "<button id='btnAddGroup' class ='btnGroup'>Add Group</button></div>"
-        );
+        if(item.status) {
+            $("#boxContent").append(
+                "<div class='username' data-name='" + item.ID + "'>" + item.UserName +
+                "<button id='btnAddGroup' class ='btnGroup'>Add Group</button></div>"
+            );
+        }
     });
 });
 
