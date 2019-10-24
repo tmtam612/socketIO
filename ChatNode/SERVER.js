@@ -60,6 +60,7 @@ io.on("connection", function(socket) {
                 socket.emit("server-send-dki-thatbai");
             } else {
                 mangUsers[numb].ID = socket.id;
+                mangUsers[numb].status = true;
                 socket.Username = data;
                 console.log(mangUsers);
                 socket.emit("server-send-dki-thanhcong", mangUsers[numb]);
@@ -133,12 +134,17 @@ io.on("connection", function(socket) {
         io.to(friendID).emit("sever-send-msg-friend", {
             un: socket.Username,
             nd: data.message,
-            sender: data.sender
+            sender: data.sender,
+            senderName: data.senderName,
+            receiverName: data.receiverName
         });
         //Server send message to client 
         socket.emit("server-send-msg-thanhcong", {
             un: socket.Username,
-            nd: data.message
+            nd: data.message,
+            sender: data.sender,
+            senderName: data.senderName,
+            receiverName: data.receiverName
         });
     });
 

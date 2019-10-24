@@ -81,21 +81,29 @@ socket.on("sever-send-msg-friend", function(data) {
     $("#nameFriend").html(data.un);
     $('#txtID').val(data.sender);
     $("#chatFriend").show(300);
+    $('.ms').hide();
+    console.log($('.ms'));
     $("#msgFriend").append(
-        "<div class='ms'>" +
+        "<div class='ms' room="+data.senderName+"to"+data.receiverName+">" +
         "<strong> " + data.un + " </strong> :" +
         data.nd + "</div>"
     );
+    console.log($('[room='+data.senderName+'to'+data.receiverName+']'));
+    $('[room='+data.senderName+'to'+data.receiverName+']').show();
+    $('[room='+data.receiverName+'to'+data.senderName+']').show();
 });
 
 //show again message in Box chat friend
 socket.on("server-send-msg-thanhcong", function(data) {
+    $('.ms').hide();
     $("#msgFriend").append(
-        "<div class='ms'>" +
+        "<div class='ms' room="+data.senderName+"to"+data.receiverName+">" +
         "<strong> " + data.un + " </strong> :" +
         data.nd + "</div>"
     );
     $("#txtFriend").val("");
+    $('[room='+data.senderName+'to'+data.receiverName+']').show();
+    $('[room='+data.receiverName+'to'+data.senderName+']').show();
 });
 
 socket.on("sever-send-dang-go-chu", function(data) {
