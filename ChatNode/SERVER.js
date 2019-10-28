@@ -100,15 +100,20 @@ io.on("connection", function(socket) {
 
     //send username and message to client
     socket.on("user-send-message", function(data) {
-        io.sockets.emit("server-send-mesage", {
-            un: socket.Username,
-            nd: data
-        });
+        if(socket.Username !== undefined) {
+            io.sockets.emit("server-send-mesage", {
+                un: socket.Username,
+                nd: data
+            });
+        }
+        
     });
 
     socket.on("toi-dang-go-chu", function() {
-        var s = "<strong style = 'color:blue;'> " + socket.Username + " </strong> sending message...";
-        socket.broadcast.emit("ai-do-dang-go-chu", s);
+        if(socket.Username !== undefined) {
+            var s = "<strong style = 'color:blue;'> " + socket.Username + " </strong> sending message...";
+            socket.broadcast.emit("ai-do-dang-go-chu", s);
+        }
     });
 
     socket.on("toi-stop-go-chu", function() {
@@ -129,28 +134,32 @@ io.on("connection", function(socket) {
 
     //Send private message
     socket.on("send-message-friend", function(data) {
-        //Server send message to User
-        var friendID = searchForId(data.receiverName);
-        io.to(friendID).emit("sever-send-msg-friend", {
-            un: socket.Username,
-            nd: data.message,
-            sender: data.sender,
-            senderName: data.senderName,
-            receiverName: data.receiverName
-        });
-        //Server send message to client 
-        socket.emit("server-send-msg-thanhcong", {
-            un: socket.Username,
-            nd: data.message,
-            sender: data.sender,
-            senderName: data.senderName,
-            receiverName: data.receiverName
-        });
+        if(socket.Username  !== undefined) {
+            //Server send message to User
+            var friendID = searchForId(data.receiverName);
+            io.to(friendID).emit("sever-send-msg-friend", {
+                un: socket.Username,
+                nd: data.message,
+                sender: data.sender,
+                senderName: data.senderName,
+                receiverName: data.receiverName
+            });
+         //Server send message to client 
+            socket.emit("server-send-msg-thanhcong", {
+                un: socket.Username,
+                nd: data.message,
+                sender: data.sender,
+                senderName: data.senderName,
+                receiverName: data.receiverName
+            });
+        }
     });
 
     socket.on("user-dang-go-chu", function(data) {
-        var s = "<strong style = 'color:blue;'> " + socket.Username + " </strong> sending message...";
-        io.to(data).emit("sever-send-dang-go-chu", s);
+        if(socket.Username !== undefined) {
+            var s = "<strong style = 'color:blue;'> " + socket.Username + " </strong> sending message...";
+            io.to(data).emit("sever-send-dang-go-chu", s);
+        }
     });
 
     socket.on("user-stop-go-chu", function(data) {
@@ -161,42 +170,44 @@ io.on("connection", function(socket) {
     // ------ CHAT ROOM ------- //
     // socket.adapter.rooms=>list rooms
     socket.on("client-send-RoomName", function(data) {
-        socket.join(data);
-        socket.Room = data;
-        var mang = [];
-        for (name in socket.adapter.rooms) {
-            var flag = true;
-            for (var i = 0; i < mangUsers.length; i++) {
-                if (mangUsers[i].ID == name) {
-                    flag = false;
-                    break;
-                }
-            }
-            if (flag == true) {
-                mang.push(name);
-            }
-        }
-        io.sockets.emit("server-send-rooms", mang);
-        socket.emit("server-send-room-socket", data);
-
-        //list user in Room
-        var lstUser = [];
-        var sioRoom = io.sockets.adapter.rooms[data];
-        if (sioRoom) {
-            Object.keys(sioRoom.sockets).forEach(function(socketId) {
+        if(socket.Username !== undefined) {
+            socket.join(data);
+            socket.Room = data;
+            var mang = [];
+            for (name in socket.adapter.rooms) {
+                var flag = true;
                 for (var i = 0; i < mangUsers.length; i++) {
-                    if (mangUsers[i].ID === socketId) {
-                        lstUser.push(mangUsers[i].UserName);
+                    if (mangUsers[i].ID == name) {
+                        flag = false;
+                        break;
                     }
                 }
-            });
-            // send list user in Room
-            io.sockets.in(data).emit("server-send-lstUser-Room", lstUser);
-            //Send username, nameRoom joined room
-            io.sockets.in(data).emit("server-send-user-join-Room", {
-                name: socket.Username,
-                nameRoom: data
-            });
+                if (flag == true) {
+                    mang.push(name);
+                }
+            }
+            io.sockets.emit("server-send-rooms", mang);
+            socket.emit("server-send-room-socket", data);
+    
+            //list user in Room
+            var lstUser = [];
+            var sioRoom = io.sockets.adapter.rooms[data];
+            if (sioRoom) {
+                Object.keys(sioRoom.sockets).forEach(function(socketId) {
+                    for (var i = 0; i < mangUsers.length; i++) {
+                        if (mangUsers[i].ID === socketId) {
+                            lstUser.push(mangUsers[i].UserName);
+                        }
+                    }
+                });
+                // send list user in Room
+                io.sockets.in(data).emit("server-send-lstUser-Room", lstUser);
+                //Send username, nameRoom joined room
+                io.sockets.in(data).emit("server-send-user-join-Room", {
+                    name: socket.Username,
+                    nameRoom: data
+                });
+            }
         }
     });
 
@@ -209,12 +220,14 @@ io.on("connection", function(socket) {
 
     //Server send message to client in Room
     socket.on("user-chat", function(data) {
-        var myRoom = data.myRoom;
-        io.sockets.in(myRoom).emit("server-chat", {
-            un: socket.Username,
-            nd: data.messages,
-            nameRoom: myRoom
-        });
+        if(socket.Username !== undefined) {
+            var myRoom = data.myRoom;
+            io.sockets.in(myRoom).emit("server-chat", {
+                un: socket.Username,
+                nd: data.messages,
+                nameRoom: myRoom
+            });
+        }
     });
 
     // Leave room

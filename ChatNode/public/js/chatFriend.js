@@ -88,9 +88,15 @@ socket.on("sever-send-msg-friend", function(data) {
         "<strong> " + data.un + " </strong> :" +
         data.nd + "</div>"
     );
-    console.log($('[room='+data.senderName+'to'+data.receiverName+']'));
     $('[room='+data.senderName+'to'+data.receiverName+']').show();
     $('[room='+data.receiverName+'to'+data.senderName+']').show();
+    if(data.senderName == $('#currentUser').text()) {
+        $('[room='+data.receiverName+'to'+data.senderName+']').attr('align','left');
+        $('[room='+data.senderName+'to'+data.receiverName+']').attr('align','right');
+    } else {
+        $('[room='+data.receiverName+'to'+data.senderName+']').attr('align','right');
+        $('[room='+data.senderName+'to'+data.receiverName+']').attr('align','left');
+    }
 });
 
 //show again message in Box chat friend
@@ -104,6 +110,13 @@ socket.on("server-send-msg-thanhcong", function(data) {
     $("#txtFriend").val("");
     $('[room='+data.senderName+'to'+data.receiverName+']').show();
     $('[room='+data.receiverName+'to'+data.senderName+']').show();
+    if(data.senderName == $('#currentUser').text()) {
+        $('[room='+data.receiverName+'to'+data.senderName+']').attr('align','left');
+        $('[room='+data.senderName+'to'+data.receiverName+']').attr('align','right');
+    } else {
+        $('[room='+data.receiverName+'to'+data.senderName+']').attr('align','right');
+        $('[room='+data.senderName+'to'+data.receiverName+']').attr('align','left');
+    }
 });
 
 socket.on("sever-send-dang-go-chu", function(data) {

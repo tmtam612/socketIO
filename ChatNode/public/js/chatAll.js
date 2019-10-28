@@ -65,17 +65,27 @@ socket.on("server-send-danhsach-Users", function(data) {
 socket.on("server-send-dki-thanhcong", function(data) {
     $('#currentUserID').val(data.ID);
     $("#currentUser").html(data.UserName);
+    console.log($('#currentUser'));
     $("#loginForm").hide();
     $("#chatForm").show();
 });
 
 //get messages from all User
 socket.on("server-send-mesage", function(data) {
-    $("#listMessages").append(
-        "<div class='ms'>" +
-        "<strong>" + data.un + "</strong> :" +
-        data.nd + "</div>"
-    );
+    if(data.un == $('#currentUser').text()) {
+        $("#listMessages").append(
+            "<div class='ms' align='right'>" +
+            "<strong>" + data.un + "</strong> :" +
+            data.nd + "</div>"
+        );
+    } else {
+        $("#listMessages").append(
+            "<div class='ms' align='left'>" +
+            "<strong>" + data.un + "</strong> :" +
+            data.nd + "</div>"
+        );
+    }
+   
     $("#txtMessage").val("");
 });
 

@@ -102,11 +102,20 @@ socket.on("server-chat", function(data) {
     $("#nameRoom").attr("data-name", data.nameRoom);
     $("#nameRoom").html(data.nameRoom);
     $("#formChatRoom").show(300);
-    $("#listMessagesRoom").append(
-        "<div class='ndChat'>" +
-        "<strong> " + data.un + " </strong> :" +
-        data.nd + "</div>"
-    );
+    if(data.un == $('#currentUser').text()) {
+        $("#listMessagesRoom").append(
+            "<div class='ndChat' align='right'>" +
+            "<strong> " + data.un + " </strong> :" +
+            data.nd + "</div>"
+        );
+    }  else {
+        $("#listMessagesRoom").append(
+            "<div class='ndChat' align='left'>" +
+            "<strong> " + data.un + " </strong> :" +
+            data.nd + "</div>"
+        );
+    }
+    
     $("#txtMessageRoom").val("");
 });
 
