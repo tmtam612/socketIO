@@ -62,7 +62,6 @@ io.on("connection", function(socket) {
                 mangUsers[numb].ID = socket.id;
                 mangUsers[numb].status = true;
                 socket.Username = data;
-                console.log(mangUsers);
                 socket.emit("server-send-dki-thanhcong", mangUsers[numb]);
                 io.sockets.emit("server-send-danhsach-Users", mangUsers);
             }
