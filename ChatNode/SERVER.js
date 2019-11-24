@@ -71,7 +71,7 @@ io.on("connection", function(socket) {
             mangUsers.push($users);
             socket.Username = data;
             socket.emit("server-send-dki-thanhcong", $users);
-            io.sockets.emit("server-send-danhsach-Users", mangUsers);
+            socket.broadcast.emit("server-send-danhsach-Users", mangUsers);
         }
         // if ($flag) {
         //     $users = new User(data, socket.id);
