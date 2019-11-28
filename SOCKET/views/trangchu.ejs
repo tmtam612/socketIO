@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Demo Chat</title>
+
+    <script src="js/jquery.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/chatAll.js"></script>
+    <script src="js/chatRoom.js"></script>
+    <script src="js/chatFriend.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/layout.css" />
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <div id="chatALL">
+            <!-- <div id="loginForm" style="text-align:center;">
+                <div>
+                    <h3>My Name</h3>
+                    <input type="text" id="txtUsername" required/>
+                    <input type="button" value="Register" id="btnRegister" />
+                </div>
+            </div> -->
+            <input type="hidden" id="oldValue" value="0"/>
+            <!--View chat ALl User-->
+            <div id="chatForm">
+                <input type="hidden" name="userName" id="userName" value="1">
+                <input type="hidden" name="userId" id="userId" value="1">
+                <input type="hidden" name="auctionId" id="auctionId" value="1">
+                <input type="hidden" name="startBid" id="startBid" value="1">
+                <input type="hidden" name="bidAmount" id="bidAmount" value="1">
+                <input type="hidden" name="timeStart" id="timeStart" value="1">
+                <input type="hidden" name="timeEnd" id="timeEnd" value="1">
+                <div id="left">
+                    <div id="boxTitle">List Users</div>
+                    <div id="boxContent"></div>
+                </div>
+                <div id="right">
+                    <div id="leftHeader">To: All User</div>
+                    <div id="sayHi">
+                        Hello <span id="currentUser"></span>
+                        <input type="hidden" id="currentUserID" />
+                        <input type="button" id="btnLogout" value="Logout">
+                    </div>
+                    <div id="listMessages"></div>
+                    <div id="thongbao"></div>
+                    <div style="text-align:center;">
+                        <input type="text" id="txtMessage" onkeydown="if (event.keyCode == 13)$('#btnSendMessage').click()" />
+                        <input type="button" id="btnSendMessage" value="Send" />
+                    </div>
+                </div>
+                <!--Chat box friend-->
+                <div id="chatFriend">
+                    <div id="headerFriend">
+                        <div id="nameFriend">Friend</div>
+                        <div class="btnClose">
+                            <img src="img/iconClose.png" alt="Close" width="15px" height="15px" title="Close">
+                        </div>
+                    </div>
+                    <div id="msgFriend"></div>
+                    <div id="alertFriend"></div>
+                    <div class="send">
+                        <input type="hidden" id="sender" />
+                        <input type="hidden" id="receiver" />
+                        <input type="hidden" id="txtID" />
+                        <input type="text" id="txtFriend" onkeydown="if (event.keyCode == 13) $('#btnFriend').click()" />
+                        <input type="button" id="btnFriend" value="Send" />
+                    </div>
+                </div>
+                <!--CHAT ROOM-->
+                <div id="contentRoom">
+                    <div id="registerRoom">
+                        <input type="text" id="txtRoom" required style="width:60%;" />
+                        <input type="button" value="Create/Join room" id="btnCreate" />
+                    </div>
+                    <!--View list room-->
+                    <div id="chatRoom">
+                        <div id="lstRoom">
+                            <!--My room-->
+                            <div id="myRoom">
+                                <div class="roomTitle">
+                                    <div class="nameHeader">My Room</div>
+                                </div>
+                                <div id="myRoomName" data-name=""></div>
+                            </div>
+                            <!--List room-->
+                            <div class="roomTitle" style="margin-top:5px;">
+                                <div class="nameHeader">List Room</div>
+                            </div>
+                            <div id="dsRoom"></div>
+                        </div>
+                    </div>
+                </div>
+                <!--Chat Box Room-->
+                <div id="formChatRoom">
+                    <div id="headerRoom">
+                        <div id="sayRoom">
+                            <strong style="color:white;">Room: </strong><span id="nameRoom" data-name=""></span>
+                        </div>
+                        <div id="btLeave">
+                            <input type="button" id="btnLeaveRoom" value="Leave">
+                        </div>
+                    </div>
+                    <div id="listMessagesRoom"></div>
+
+                    <div id="thongbao"></div>
+                    <div class="send">
+                        <input type="text" id="txtMessageRoom" onkeydown="if (event.keyCode == 13) $('#btnSendMessageRoom').click()" />
+                        <input type="button" id="btnSendMessageRoom" value="Send" />
+                    </div>
+                    <div id="boxUser">
+                        <div class="roomTitle">
+                            <div class="nameHeader">Member in room</div>
+                        </div>
+                        <div id="lstUser-Room"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
